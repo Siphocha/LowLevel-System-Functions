@@ -3,16 +3,17 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-    // Check if the correct number of arguments is provided
+    //Only need this manin func this time.
+    //Check if number of args doesn't surpass.
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <elf_executable_path>\n", argv[0]);
         return 1;
     }
 
-    // Use fixed output filename "random.txt"
+    //fixed output filename
     const char *output_file = "random.txt";
 
-    // Create the objdump command
+    //Creation of  the objdump command
     char command[1024];
     snprintf(command, sizeof(command),
              "objdump -d -j .text \"%s\" > \"%s\"",
@@ -21,7 +22,7 @@ int main(int argc, char *argv[]) {
     printf("Disassembling .text section of '%s'...\n", argv[1]);
     printf("Output will be saved to '%s'\n", output_file);
 
-    // Execute command
+    //Execute command
     int result = system(command);
 
     if (result == 0) {
