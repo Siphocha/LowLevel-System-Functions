@@ -1,37 +1,25 @@
 from setuptools import setup, Extension
-import platform
+import sys
 
-# Platform-specific compilation settings
-if platform.system() == "Windows":
-    extra_compile_args = []
-    extra_link_args = []
-else:
-    extra_compile_args = ["-std=c99"]
-    extra_link_args = []
-
-module = Extension(
+sensor_module = Extension(
     'sensor_simulator',
     sources=['sensor_simulator.c'],
-    extra_compile_args=extra_compile_args,
-    extra_link_args=extra_link_args,
+    extra_compile_args=['-std=c99'] if sys.platform != 'win32' else [],
+    libraries=['m'] if sys.platform != 'win32' else []  # Link math library for Unix-like systems
 )
 
 setup(
-    name='sensor_simulator',
+    name='iot sensor simulator',
     version='1.0.0',
-    description='Lightweight IoT Sensor Simulator - C Extension',
-    ext_modules=[module],
-    zip_safe=False,
+    description='Lightweight IoT Sensor Data Simulator',
+    ext_modules=[sensor_module],
     python_requires='>=3.6',
     author='IoT Monitoring System',
-    author_email='example@example.com',
-    url='https://github.com/example/iot-monitoring',
+    author_email='iot@example.com',
     classifiers=[
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: C',
-        'Topic :: System :: Monitoring',
+        'Development Status: Beta',
+        'Intended Audience: Developers',
+        'Software Development:  Embedded Systems',
+        'Programming Language : C',
     ],
 )
