@@ -9,7 +9,6 @@
 #include <unistd.h>
 #endif
 
-// Global variables
 diary_entry entries[MAX_ENTRIES];
 int entry_count = 0;
 
@@ -32,13 +31,12 @@ void decrypt_entry(const char* encrypted, char* plaintext) {
 }
 
 int verify_user() {
-    char password[50];
-    char correct_password[] = "secret123"; // Simple verification
+    char password[50]; //password is below
+    char correct_password[] = "secret123"; 
     
     printf("Enter password: ");
     
 #ifdef _WIN32
-    // Windows password input without echo
     HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
     DWORD mode = 0;
     GetConsoleMode(hStdin, &mode);
@@ -68,7 +66,7 @@ void store_encrypted_to_memory(const char* plaintext) {
         strncpy(entries[entry_count].plaintext_data, plaintext, MAX_ENTRY_LENGTH - 1);
         entries[entry_count].is_encrypted = 1;
         entry_count++;
-        printf("Entry stored and encrypted successfully!\n");
+        printf("EStored encrypted successfully!\n");
     } else {
         printf("Diary is full! Cannot add more entries.\n");
     }
